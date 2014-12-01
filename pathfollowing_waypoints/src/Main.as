@@ -11,7 +11,7 @@ package
 	public class Main extends Sprite 
 	{
 		
-		private var ball : Ball;
+		private var _paraglider : Paraglider;
 		
 		public function Main():void 
 		{
@@ -23,9 +23,9 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			ball = new Ball();
+			_paraglider = new Paraglider();
 			
-			addChild(ball);
+			addChild(_paraglider);
 			
 			addEventListener(Event.ENTER_FRAME, update);
 			stage.addEventListener(MouseEvent.CLICK, addWayPoint );
@@ -33,12 +33,12 @@ package
 		
 		private function update(e : Event) : void
 		{
-			ball.update();
+			_paraglider.update();
 		}
 		
 		private function addWayPoint(e : MouseEvent) : void
 		{
-			ball.addWayPoint(new Vector2D(mouseX, mouseY));
+			_paraglider.addWayPoint(new Vector2D(mouseX, mouseY));
 		}
 	}
 	
