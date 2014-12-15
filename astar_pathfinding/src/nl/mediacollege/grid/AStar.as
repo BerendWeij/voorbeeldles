@@ -56,21 +56,12 @@ package  nl.mediacollege.grid
 				
 				// als de huidige cell hetzelfde is als ons eindpunt, dan hebben we het eindpunt bereikt
 				if (currentCell.position.equals( end ) ) {
-					// we gaan de array met het pad vullen en terug geven
-					var path : Array = [];
-					// dit doen we door alle 'parent' cells heen te loopen en ze te pushen in de path array
-					// zo gaan we vanaf het eindpunt terug naar het beginpunt
-					while(currentCell.parent) {
-						path.push(currentCell);
-						currentCell = currentCell.parent;
-					}
-					// uiteindelijk willen we het pad natuurlijk wel van voor naar achteren dus we draain de array om
-					return path.reverse();
+					return getPathToCell(currentCell);
 				}
 				
 				// de cell die we nu aan het checken zijn mag van de openList af (we hoeven hem niet meer te
 				// checken aangezien we hem NU al aan het checken zijn)
-				openList.splice(openList.indexOf(currentCell), 1);
+				openList.splice(0, 1);
 				// en we voegen hem toe aan de closedList zodat we bijhouden welke cellen we al hebben behad
 				closedList.push(currentCell);
 				currentCell.isClosed	=	true;
@@ -136,6 +127,22 @@ package  nl.mediacollege.grid
 	 
 			// No result was found -- empty array signifies failure to find path
 			return [];
+		}
+		
+		// deze functie kijkt bij een cell wat zijn parent is
+		// en loopt vervolgens terug tot aan het begin van het pad
+		static private function getPathToCell(currentCell:Cell):Array 
+		{
+			// we gaan de array met het pad vullen en terug geven
+			var path : Array = [];
+			// dit doen we door alle 'parent' cells heen te loopen en ze te pushen in de path array
+			// zo gaan we vanaf het eindpunt terug naar het beginpunt
+			while(currentCell.parent) {
+				path.push(currentCell);
+				currentCell = currentCell.parent;
+			}
+			// uiteindelijk willen we het pad natuurlijk wel van voor naar achteren dus we draain de array om
+			return path.reverse();
 		}
 		
 		// deze functie kan 'schatten' wat de kosten zijn van een bepaald punt naar een ander punt
